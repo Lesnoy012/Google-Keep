@@ -67,5 +67,3 @@ formAddNote.addEventListener('submit', (event)=>{
         }
     })
 })
-
-
