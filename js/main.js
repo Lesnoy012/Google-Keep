@@ -3,14 +3,19 @@ const inputNewNote = document.querySelector("#form__input");
 const cardsForm = document.querySelector("#cardsForm");
 
 class NewNote {
-    constructor(title = '', text = '', date = '') {
+    constructor(title, text, date) {
         this.title = title;
         this.text = text;
         this.date = date;
     }
 }
 
-const arrNotes = [new NewNote("Callback", "Прочитать док-ию", new Date ())];
+let arrNotes = [];  
+
+//Проверка хранилища на наличие заметок при обновлении страницы.
+if(localStorage.getItem('Notes')){
+  arrNotes = JSON.parse(localStorage.getItem('Notes'));
+}
 
 //Рендерим все карточки, уже находящиеся в массиве.
 arrNotes.forEach((item) => {
@@ -63,7 +68,10 @@ formAddNote.addEventListener('submit', (event)=>{
 
     inputCardText.addEventListener("keydown", (event)=>{
         if(event.keyCode == 13) {
+          arrNotes[lastCardIndex].text = inputCardText.value;
+          console.log(arrNotes);
             inputCardText.disabled = true;
-        }
+            localStorage.setItem('Notes', JSON.stringify(arrNotes));
+         }
     })
 })
